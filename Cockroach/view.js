@@ -5,6 +5,9 @@
 ・点線で細かい線
 ・ズームをマウスカーソルの位置で
 ・logboxのテーブル化
+・obj毎のlogパネル
+・あたり判定
+・モード切替スイッチ
 */
 /******************************************************************************
 * 定数・変数
@@ -34,6 +37,9 @@ var g_rel_left   = 0;	//相対座標での高さ上限
 var gesture_flg = false;
 var drag_flg = 0;
 var didFirstClick = 0;
+
+//mode
+g_mode = 0;
 
 /******************************************************************************
 * 初期化
@@ -88,40 +94,19 @@ function draw_proc() {
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = "rgba(150, 150, 150, 0.5)";
 
-	 draw_line(0, g_rel_top, 0, g_rel_bottom);
-	 draw_line(g_rel_left, 0, g_rel_right, 0);
+	draw_line(0, g_rel_top, 0, g_rel_bottom);
+	draw_line(g_rel_left, 0, g_rel_right, 0);
 
-/*
 	//obj描画
-	ctx.strokeStyle = "rgb(0, 0, 255)";
-	ctx.lineWidth = 3;
-	ctx.fillStyle = "rgba(100, 100, 255, 0.5)";			//塗りつぶしの色
-	for (i = 0; i < nodes.length; i ++) {
-		ctx.beginPath();
-		pos = cal_pos(nodes[i][0], nodes[i][1]);
-		ctx.fillRect(
-			pos[0] - rect_size / 2 / g_camera_z,
-			pos[1] - rect_size / 2 / g_camera_z,
-			rect_size / g_camera_z,
-			rect_size / g_camera_z);		//塗りつぶし
-		ctx.strokeRect(
-			pos[0] - rect_size / 2 / g_camera_z,
-			pos[1] - rect_size / 2 / g_camera_z,
-			rect_size / g_camera_z,
-			rect_size / g_camera_z);	//枠線のみ
-
-	}
-*/
-
 	ctx.strokeStyle = "rgb(0, 0, 255)";
 	ctx.lineWidth = 3;
 	ctx.fillStyle = "rgba(100, 100, 255, 0.5)";			//塗りつぶしの色
 
 	for (i = 0; i < obj.length; i ++) {
 
-		pos = cal_pos(obj[i].a, obj[i].b);
+		pos = cal_pos(obj[i][0], obj[i][1]);
 		ctx.translate( pos[0], pos[1] ) ;
-		ctx.rotate( - obj[i].c * Math.PI / 180 );
+		ctx.rotate( - obj[i][2] * Math.PI / 180 );
 
 		ctx.strokeStyle = "blue";
 		ctx.fillRect(
@@ -143,7 +128,7 @@ function draw_proc() {
 			rect_size / 2 / g_camera_z
 		);
 
-		ctx.rotate(obj[i].c * Math.PI / 180);
+		ctx.rotate(obj[i][2] * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
 	}
 
@@ -154,7 +139,7 @@ function draw_proc() {
 	log("g_rel_top", g_rel_top);
 	log("g_rel_left", g_rel_left);
 	log("g_rel_right", g_rel_right);
-
+	log("g_mode", g_mode);
 
 }
 
@@ -294,6 +279,10 @@ function gestureend(ev) {
 	gesture_flg = false;
 }
 
+function mode_switch () {
+	g_mode = (g_mode + 1) % 2;
+}
+
 /******************************************************************************
 * データ初期化
 ******************************************************************************/
@@ -320,19 +309,3 @@ function log(target, msg) {
 	msg = Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
 	elem.innerText = target + ":" + msg;
 }
-/*
-	log("g_camera_x", g_camera_x);
-	log("g_camera_y", g_camera_y);
-	log("g_camera_z", g_camera_z);
-	log("g_rel_bottom", g_rel_bottom);
-	log("g_rel_top", g_rel_top);
-	log("g_rel_left", g_rel_left);
-	log("g_rel_right", g_rel_right);
-*/
-/*
-	log("abs_start_x", sp[0]);
-	log("abs_start_y", sp[1]);
-	log("abs_end_x", ep[0]);
-	log("abs_end_y", ep[1]);
-*/
-	

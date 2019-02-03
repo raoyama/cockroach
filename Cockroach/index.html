@@ -26,13 +26,24 @@
 
 	.logbox{
 		position: absolute;
-		top: 50px;
+		top: 70px;
 		left: 50px;
 		background: rgba(240,256,240,0.5);
 		padding: 5px;
 		color: rgba(0,0,0,1);
 		border:#00ff00 solid 1px;
 	}
+
+	.switchbox{
+		position: absolute;
+		top: 20px;
+		left: 50px;
+		background: rgba(256,240,240,0.5);
+		padding: 5px;
+		color: rgba(0,0,0,1);
+		border:#ff0000 solid 1px;
+	}
+
 </style>
 </head>
 <body onload="init()">
@@ -41,4 +52,7 @@
   </canvas>
 </div>
 <div class="logbox" id="log"></div>
+<div class="switchbox" id="switch">
+<button onclick="mode_switch();">集まれボタン</button>
+</div>
 </body>
