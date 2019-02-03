@@ -1,0 +1,44 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="data.js"></script>
+<script src="view.js"></script>
+<script src="animation.js"></script>
+<style>
+	html,
+	body {
+	  height: 100%;
+	  margin: 0;
+	  overflow: hidden;
+	  width: 100%;
+	}
+
+	#wrap {
+	  height: 100%;
+	  width: 100%;
+	}
+
+	#canvas {
+//	  background: #FAFAFA;
+	  background: #000000;
+	  display: block;
+	}
+
+	.logbox{
+		position: absolute;
+		top: 50px;
+		left: 50px;
+		background: rgba(240,256,240,0.5);
+		padding: 5px;
+		color: rgba(0,0,0,1);
+		border:#00ff00 solid 1px;
+	}
+</style>
+</head>
+<body onload="init()">
+<div id="wrap">
+  <canvas id="canvas">
+  </canvas>
+</div>
+<div class="logbox" id="log"></div>
+</body>
