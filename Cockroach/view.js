@@ -1,3 +1,5 @@
+"use strict";
+
 /******************************************************************************
 * ToDo
 ******************************************************************************/
@@ -12,34 +14,29 @@
 /******************************************************************************
 * 定数・変数
 ******************************************************************************/
-var rect_size = 1;		//サイズ
-
-var c;
-var wrap;
-var ctx;
-
-var pre_x = 0;				//move制御用前回の値
-var pre_y = 0;
-
-//相対座標上でのカメラ位置
-g_camera_x = 0;
-g_camera_y = 0;
-//g_camera_z = 1;
-g_camera_z = 0.05;
-
-//相対座標の描画領域
-var g_rel_top    = 0;	//相対座標での幅上限
-var g_rel_right  = 0;	//相対座標での高さ上限
-var g_rel_bottom = 0;	//相対座標での幅上限
-var g_rel_left   = 0;	//相対座標での高さ上限
-
-//スマホイベント制御用
-var gesture_flg = false;
-var drag_flg = 0;
-var didFirstClick = 0;
-
-//mode
-g_mode = 0;
+const rect_size = 1; //ゴキブリのサイズ
+    //document格納用
+var c,
+	wrap,
+	ctx,
+	//move制御用前回の値
+    pre_x = 0,				
+    pre_y = 0,
+    //相対座標上でのカメラ位置
+    g_camera_x = 0,
+    g_camera_y = 0,
+    g_camera_z = 0.05,
+    //相対座標の描画領域
+    g_rel_top    = 0,	//相対座標での幅上限
+    g_rel_right  = 0,	//相対座標での高さ上限
+    g_rel_bottom = 0,	//相対座標での幅上限
+    g_rel_left   = 0,	//相対座標での高さ上限
+    //スマホイベント制御用
+    gesture_flg = false,
+    drag_flg = 0,
+    didFirstClick = 0,
+    //ゴキブリの動作モード
+	g_mode = 0;
 
 /******************************************************************************
 * 初期化
@@ -102,11 +99,10 @@ function draw_proc() {
 	ctx.lineWidth = 3;
 	ctx.fillStyle = "rgba(100, 100, 255, 0.5)";			//塗りつぶしの色
 
-	for (i = 0; i < obj.length; i ++) {
-
-		pos = cal_pos(obj[i][0], obj[i][1]);
+	cockroaches.forEach(function(cockroach) {
+		let pos = cal_pos(cockroach.x, cockroach.y);
 		ctx.translate( pos[0], pos[1] ) ;
-		ctx.rotate( - obj[i][2] * Math.PI / 180 );
+		ctx.rotate( - cockroach.r * Math.PI / 180 );
 
 		ctx.strokeStyle = "blue";
 		ctx.fillRect(
@@ -128,9 +124,9 @@ function draw_proc() {
 			rect_size / 2 / g_camera_z
 		);
 
-		ctx.rotate(obj[i][2] * Math.PI / 180);
+		ctx.rotate(cockroach.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
-	}
+	});
 
 	log("g_camera_x", g_camera_x);
 	log("g_camera_y", g_camera_y);
@@ -145,8 +141,8 @@ function draw_proc() {
 
 function draw_line(x1, y1, x2, y2) {
 	ctx.beginPath();
-	sp = cal_pos(x1, y1);
-	ep = cal_pos(x2, y2);
+	let sp = cal_pos(x1, y1),
+	    ep = cal_pos(x2, y2);
 
 	ctx.moveTo(sp[0], sp[1]);
 	ctx.lineTo(ep[0], ep[1]);
@@ -214,7 +210,7 @@ function mousedown(ev) {
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
-		var ev = ev.targetTouches[0];
+		let ev = ev.targetTouches[0];
 
 		if(didFirstClick == 0) {
 			didFirstClick = 1;
@@ -247,12 +243,12 @@ function move(ev) {
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
-		var ev = ev.targetTouches[0];
+		let ev = ev.targetTouches[0];
 	}
 
 	 //画面移動量
-	var dx = ev.clientX - pre_x;
-	var dy = ev.clientY - pre_y;
+	let dx = ev.clientX - pre_x;
+	let dy = ev.clientY - pre_y;
 	pre_x = ev.clientX;
     pre_y = ev.clientY;
 
@@ -265,7 +261,7 @@ function move(ev) {
 
 //マルチタッチ対応
 function gesturechange(ev) {
-	var ds = 1 + ((ev.scale - 1) * 0.05);
+	let ds = 1 + ((ev.scale - 1) * 0.05);
 	g_camera_z = g_camera_z / ds;
 	draw_proc();
 }
@@ -297,15 +293,15 @@ function init_data() {
 
 //log関数
 function log(target, msg) {
-	var elem = document.getElementById(target);
+	let elem = document.getElementById(target);
 	if (elem == null) {
 		elem = document.createElement("div");
 		elem.id = target;
-		root_elem = document.getElementById('log');
+		let root_elem = document.getElementById('log');
 		root_elem.appendChild(elem);
 	}
 
-	n = 3;
+	let n = 3;
 	msg = Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
 	elem.innerText = target + ":" + msg;
 }
