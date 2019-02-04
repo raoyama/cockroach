@@ -1,15 +1,15 @@
-var obj = [
+var cockroaches = [
 	////相対X座標、相対Y座標、向き
-	[-10,	-10, 30],
-	[0,		-10, 60],
-	[10,	-10, 90],
-	[-10,	0, 120],
-	[0,		0, 150],
-	[10,	0, 180],
-	[-10,	10, 210],
-	[0,		10, 240],
-	[10,	10, 270],
-	[-10,	20, 300],
-	[0,		20, 330],
-	[10,	20, 360],
+	new Cockroach(-10, -10,  30),
+	new Cockroach(0,   -10,  60),
+	new Cockroach(10,  -10,  90),
+	new Cockroach(-10,   0, 120),
+	new Cockroach(0,     0, 150),
+	new Cockroach(10,    0, 180),
+	new Cockroach(-10,  10, 210),
+	new Cockroach(0,    10, 240),
+	new Cockroach(10,   10, 270),
+	new Cockroach(-10,  20, 300),
+	new Cockroach(0,    20, 330),
+	new Cockroach(10,   20, 360),
 ];
