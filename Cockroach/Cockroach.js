@@ -1,13 +1,13 @@
 "use strict";
 
 class Cockroach {
-	constructor(x, y, r) {
-		this._x = x;
-		this._y = y;
-		this._r = r;
+    constructor(x, y, r) {
+        this._x = x;
+        this._y = y;
+        this._r = r;
     }
 
-	run() {
+    run() {
         if (this._mode == 1) {
             this.lineupMove();
         } else {
@@ -24,8 +24,10 @@ class Cockroach {
         this._r += dir;
         this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
-        
-        colision(this)
+        let col_deg = colision(this);
+        if(col_deg != false) {
+            this._r = (this._r + col_deg) / 2;
+        }
     }
 
     get x() {return this._x;}
