@@ -21,9 +21,11 @@ class Cockroach {
     randomMove() {
         let dir = getRandomInt(10);
         
-		this._r += dir;
-		this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
+        this._r += dir;
+        this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
+        
+        colision(this)
     }
 
     get x() {return this._x;}

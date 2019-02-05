@@ -127,27 +127,6 @@ function draw_proc() {
 		ctx.rotate(cockroach.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
 	});
-
-	//あたり判定
-	let r = 3;	//あたり判定円大きさ
-	for (let i in cockroaches) {
-		for (let j in cockroaches) {
-			if(i == j)continue;
-			let dx = cockroaches[i].x - cockroaches[j].x;
-			let dy = cockroaches[i].y - cockroaches[j].y;
-
-			//半径よりおおきければOK
-			let d = dx * dx + dy * dy;
-			if(d > r * r) continue;
-
-			//当たっている場合、向き判定
-			let ar = Math.atan(dy / dx);
-			let ad = ar / Math.PI * 180;
-
-			//ベクトル合成
-			cockroaches[i].r = (cockroaches[i].r + ad) / 2 % 360;
-		}
-	}
 	
 	log("g_camera_x", g_camera_x);
 	log("g_camera_y", g_camera_y);
