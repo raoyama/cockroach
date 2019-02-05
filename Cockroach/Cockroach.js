@@ -29,6 +29,9 @@ class Cockroach {
     get x() {return this._x;}
     get y() {return this._y;}
     get r() {return this._r;}
+    set x(x) {this._x = x;}
+    set y(y) {this._y = y;}
+    set r(r) {this._r = r;}
     /** 1:集まれモード else:散れモード */
     get mode() {return this._mode;}
     set mode(mode) {this._mode = mode;}
