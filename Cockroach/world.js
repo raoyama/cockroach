@@ -14,10 +14,11 @@ function colision(cockroach) {
         let d = dx * dx + dy * dy;
         if (d > r * r) continue;
 
-        //あたり各
+        //あたり角度を合算
         col_deg += rel_deg(dx, dy);
         col_cnt += 1;
     }
+    //複数点にあたった場合はその平均角度を返す
     if(col_cnt > 0) return col_deg / col_cnt;
     return false;
 }

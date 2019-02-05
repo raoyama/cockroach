@@ -26,6 +26,7 @@ class Cockroach {
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
         let col_deg = colision(this);
         if(col_deg != false) {
+            //col_deg = (col_deg + 180) % 360; //入れると面白い
             this._r = (this._r + col_deg) / 2;
         }
     }
