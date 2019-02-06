@@ -1,3 +1,5 @@
+"use strict";
+
 var cockroaches = [
 	////相対X座標、相対Y座標、向き
 	new Cockroach(-10, -10,  30),
