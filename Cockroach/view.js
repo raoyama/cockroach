@@ -127,7 +127,7 @@ function draw_proc() {
 		ctx.rotate(cockroach.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
 	});
-
+	
 	log("g_camera_x", g_camera_x);
 	log("g_camera_y", g_camera_y);
 	log("g_camera_z", g_camera_z);
