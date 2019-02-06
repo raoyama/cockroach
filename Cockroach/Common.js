@@ -13,4 +13,15 @@ class Common {
             return Math.atan(dy / dx) / Math.PI * 180 + 360;
         }
     }
+
+    static getRandomInt(max) {
+        let rand = Math.floor(Math.random() * Math.floor(max));
+
+        if(Math.random() < 0.5) {
+            rand *= -1;
+        }
+        
+        return rand;
+}
+
 }
