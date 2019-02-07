@@ -25,5 +25,6 @@ class World {
     }
 
     /** 1:集まれモード else:散れモード */
-    static get mode() {return g_mode;}
+    static get mode() {return this._mode;}
+    static set mode(val) {this._mode = val;}
 }
