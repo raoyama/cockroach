@@ -2,7 +2,7 @@
 
 class World {
     /** 当たり判定 */
-    static colision(cockroach) {
+    static collision(cockroach) {
         let r = 2;          //あたり判定円大きさ
         let col_cnt = 0;    //あたり判定
         let col_deg = 0;    //あたり角度合計 falseの場合は衝突なし
