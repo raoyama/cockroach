@@ -34,6 +34,7 @@ var cockroaches = [
 	new Cockroach(-10,  20, 300),
 	new Cockroach(0,    20, 330),
 	new Cockroach(10,   20, 360),
+/* */
 ];
 /*
 //デバッグ用
