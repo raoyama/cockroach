@@ -61,8 +61,6 @@ function init() {
 	
 	init_data();
 
-//	sizing();
-//	draw_proc();
 	window.requestAnimationFrame(mainloop);
 }
 

@@ -8,28 +8,53 @@ class Cockroach {
     }
 
     run() {
-        if (World.mode == 1) {
-            this.lineupMove();
-        } else {
-            this.randomMove();
-        }
+		switch (World.mode) {
+			case 0:
+		        this.randomMove();
+				break;
+			case 1:
+		        this.stopMove();
+				break;
+			case 2:
+		        this.gatherMove();
+				break;
+			default:
+		}
     }
 
-    lineupMove() {
+	//止まれ
+	stopMove() {
     }
 
+	//みんなの方に進む
+	gatherMove() {
+    	this.measure();
+//		Common.sleep(3000);
+		this._r += Common.avg_vec(this._rel_coods);
+//		World.mode = 1;
+		this.move();
+	}
+
+	//直線にならう
+	lineupMove() {
+    }
+
+	//ランダムに進む
     randomMove() {
-        let dir = Common.getRandomInt(10);
-        
-        this._r += dir;
+        this._r += Common.getRandomInt(10);
+    	this.move();
+    }
+
+	//現在の方向に向かって進む
+	move() {
         this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
-        let col_deg = World.colision(this);
+
+		let col_deg = World.colision(this);
         if(col_deg != false) {
             //col_deg = (col_deg + 180) % 360; //入れると面白い
             this._r = (this._r + col_deg) / 2;
         }
-    	this.measure();
     }
 
     get x() {return this._x;}
@@ -38,7 +63,7 @@ class Cockroach {
 
 	/** 
 	 * ゴキブリ場所の測定
-	 * 自身の進行方向を0°、時計回りに0°～360°角度が増える
+	 * 自身の進行方向を0°、反時計回りに0°～360°角度が増える
 	 * 全ゴキブリ分のデータ保持
 	 */
     measure() {
@@ -47,9 +72,9 @@ class Cockroach {
         	if (this == cockroaches[i]) {
         		continue;
         	}
-            let dx = this._x - cockroaches[i].x;
-            let dy = this._y - cockroaches[i].y;
-        	let rel_cood = (Common.rel_deg(dx, dy) + this._r + 180 ) % 360;
+        	let dx = cockroaches[i].x - this._x;
+        	let dy = cockroaches[i].y - this._y;
+        	let rel_cood = (Common.rel_deg(dx, dy) - this._r + 360) % 360;
         	this._rel_coods.push(rel_cood);
         }
     	//console.log(this._rel_coods);
