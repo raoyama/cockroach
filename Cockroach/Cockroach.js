@@ -28,16 +28,18 @@ class Cockroach {
 
 	//みんなの方に進む
 	gatherMove() {
+		let col_deg = World.collision(this);
 
+        if(col_deg != false) {
+			//ぶつかったら衝突動作
+            this._r = (this._r + col_deg) / 2;
+        } else {
+			//ぶつからなければ集まれ動作
+			this.measure();
+			this._r += Common.avg_vec(this._rel_coods);
+        }
+		
 		this.move();
-
-		this.measure();
-		this._r += Common.avg_vec(this._rel_coods);
-		this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
-        this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
-
-		//World.mode = 1;
-
 	}
 
 	//直線にならう
@@ -47,17 +49,17 @@ class Cockroach {
 	//ランダムに進む
     randomMove() {
         this._r += Common.getRandomInt(10);
+		let col_deg = World.collision(this);
+        if(col_deg != false) {
+            //col_deg = (col_deg + 180) % 360; //入れると面白い
+            this._r = (this._r + col_deg) / 2;
+		}
+		
     	this.move();
     }
 
 	//現在の方向に向かって進む
 	move() {
-
-		let col_deg = World.colision(this);
-        if(col_deg != false) {
-            //col_deg = (col_deg + 180) % 360; //入れると面白い
-            this._r = (this._r + col_deg) / 2;
-        }
 		this._x += Math.cos(this._r * Math.PI / 180) * 0.1;
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
     }
