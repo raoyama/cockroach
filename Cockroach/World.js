@@ -10,6 +10,8 @@ class World {
             if (cockroach == cockroaches[i]) continue;
             let dx = cockroach.x - cockroaches[i].x;
             let dy = cockroach.y - cockroaches[i].y;
+//            let dx = cockroaches[i].x - cockroach.x;
+//            let dy = cockroaches[i].y - cockroach.y;
 
             //半径よりおおきければOK
             let d = dx * dx + dy * dy;
@@ -24,7 +26,7 @@ class World {
         return false;
     }
 
-    /** 1:集まれモード else:散れモード */
+    /** モード */
     static get mode() {return this._mode;}
     static set mode(val) {this._mode = val;}
 }

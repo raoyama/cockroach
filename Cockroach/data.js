@@ -2,8 +2,11 @@
 
 var cockroaches = [
 	//相対X座標、相対Y座標、向き
-/* //デバッグ用
-	new Cockroach(-10, 0,  90),
+ //デバッグ用
+/*
+	new Cockroach(-10, 0,  180),
+	new Cockroach(0, -10,  90),
+	new Cockroach(0, 10,  90),
 	new Cockroach(10,0,     30),
 	new Cockroach(20,0,     60),
 	new Cockroach(30,0,     90),
@@ -15,6 +18,10 @@ var cockroaches = [
 	new Cockroach(90,0,     0),
 	new Cockroach(100,0   ,  0),
 */
+
+
+
+
 	new Cockroach(-10, -10,  30),
 	new Cockroach(0,   -10,  60),
 	new Cockroach(10,  -10,  90),
@@ -27,6 +34,7 @@ var cockroaches = [
 	new Cockroach(-10,  20, 300),
 	new Cockroach(0,    20, 330),
 	new Cockroach(10,   20, 360),
+/* */
 ];
 /*
 //デバッグ用

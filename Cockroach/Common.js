@@ -3,15 +3,10 @@
 class Common {
     /** 相対角度を求める */
     static rel_deg(dx, dy) {
-        if((dx >= 0) && (dy >= 0)) {
-            return Math.atan(dy / dx) / Math.PI * 180;
-        } else if ((dx <= 0) && (dy >= 0)){
-            return Math.atan(dy / dx) / Math.PI * 180 + 180;
-        } else if ((dx < 0) && (dy < 0)){
-            return Math.atan(dy / dx) / Math.PI * 180 + 180;
-        } else if ((dx >= 0) && (dy <= 0)){
-            return Math.atan(dy / dx) / Math.PI * 180 + 360;
-        }
+		//console.log("rel_deg === " + dx + ":" + dy);
+    	let ret = (Math.atan2(dy, dx) / Math.PI * 180 + 360) % 360;
+		//console.log(ret);
+		return ret;
     }
 
     static getRandomInt(max) {
@@ -22,6 +17,20 @@ class Common {
         }
         
         return rand;
+	}
+
+	/** ベクトル平均 */
+	static avg_vec(dirs) {
+		let dx = 0;
+		let dy = 0;
+		for (let dir of dirs) {
+			dx += Math.cos(dir * Math.PI / 180);
+			dy += Math.sin(dir * Math.PI / 180);
+			//console.log(dir+ ":" + dx + ":" + dy);
+		}
+//		console.log(Common.rel_deg(dx, dy));
+
+		return Common.rel_deg(dx, dy);
+	}
 }
 
-}
