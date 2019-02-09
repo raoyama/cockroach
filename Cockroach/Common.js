@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 class Common {
     /** 相対角度を求める */
     static rel_deg(dx, dy) {
-		//console.log("rel_deg === " + dx + ":" + dy);
+		//console.log('rel_deg === ' + dx + ':' + dy);
     	let ret = (Math.atan2(dy, dx) / Math.PI * 180 + 360) % 360;
 		//console.log(ret);
 		return ret;
@@ -26,11 +26,10 @@ class Common {
 		for (let dir of dirs) {
 			dx += Math.cos(dir * Math.PI / 180);
 			dy += Math.sin(dir * Math.PI / 180);
-			//console.log(dir+ ":" + dx + ":" + dy);
+			//console.log(dir+ ':' + dx + ':' + dy);
 		}
 //		console.log(Common.rel_deg(dx, dy));
 
 		return Common.rel_deg(dx, dy);
 	}
 }
-

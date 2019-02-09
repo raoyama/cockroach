@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
 class Cockroach {
-    constructor(x, y, r) {
+    constructor(x, y, r, name) {
         this._x = x;
         this._y = y;
-        this._r = r;
+		this._r = r;
+		this._name = name;
     }
 
     run() {
@@ -67,6 +68,7 @@ class Cockroach {
     get x() {return this._x;}
     get y() {return this._y;}
     get r() {return this._r;}
+    get name() {return this._name;}
 
 	/** 
 	 * ゴキブリ場所の測定

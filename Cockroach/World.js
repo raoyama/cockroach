@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 class World {
     /** 当たり判定 */
