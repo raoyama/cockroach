@@ -106,14 +106,16 @@ function draw_proc() {
 		let pos = cal_pos(cockroach.x, cockroach.y);
 		ctx.translate( pos[0], pos[1] ) ;
 		ctx.rotate( - cockroach.r * Math.PI / 180 );
-
+		
 		if (cockroach_select.options[cockroach_select.selectedIndex].value == cockroach.name){
+			//選択されたゴキブリのログ出力
 			ctx.strokeStyle = 'red';
 			ctx.fillStyle = 'rgba(255, 100, 100, 0.5)';
 			log(cockroach.name + '_x', cockroach.x);
 			log(cockroach.name + '_y', cockroach.y);
 			log(cockroach.name + '_r', cockroach.r);
 		} else {
+			//選択されていないゴキブリのログ削除
 			ctx.strokeStyle = 'blue';
 			ctx.fillStyle = 'rgba(100, 100, 255, 0.5)';
 			if (document.getElementById(cockroach.name + '_x')) document.getElementById(cockroach.name + '_x').remove();
@@ -141,6 +143,9 @@ function draw_proc() {
 
 		ctx.rotate(cockroach.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
+
+		pos = cal_pos(cockroach.x - 1, cockroach.y + 1.5);
+		ctx.strokeText(cockroach.name, pos[0], pos[1]);
 	});
 }
 
