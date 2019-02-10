@@ -1,10 +1,11 @@
 'use strict';
 
 class Cockroach {
-    constructor(x, y, r, name) {
-        this._x = x;
-        this._y = y;
-		this._r = r;
+    constructor(id, x, y, r, name) {
+        this._id = id;
+        this._x  = x;
+        this._y  = y;
+		this._r  = r;
 		this._name = name;
     }
 
@@ -37,7 +38,8 @@ class Cockroach {
         } else {
 			//ぶつからなければ集まれ動作
 			this.measure();
-			this._r += Common.avg_vec(this._rel_coods);
+			let dirs = Common.array_column(this._rel_coods, 'rel_cood');
+			this._r += Common.avg_vec(dirs);
         }
 		
 		this.move();
@@ -65,6 +67,7 @@ class Cockroach {
         this._y += Math.sin(this._r * Math.PI / 180) * 0.1;
     }
 
+    get id() {return this._id;}
     get x() {return this._x;}
     get y() {return this._y;}
     get r() {return this._r;}
@@ -84,7 +87,10 @@ class Cockroach {
         	let dx = cockroaches[i].x - this._x;
         	let dy = cockroaches[i].y - this._y;
         	let rel_cood = (Common.rel_deg(dx, dy) - this._r + 360) % 360;
-        	this._rel_coods.push(rel_cood);
+        	let tmp = [];
+        	tmp['id']       = cockroaches[i].id;
+        	tmp['rel_cood'] = rel_cood;
+        	this._rel_coods.push(tmp);
         }
     	//console.log(this._rel_coods);
     }
