@@ -217,7 +217,7 @@ function mousewheel(ev) {
 function mousedown(ev) {
 	if(gesture_flg == true) return;
     drag_flg = 1;
-	let evt = undefined;
+	let evt = ev;
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
@@ -251,7 +251,7 @@ function move(ev) {
 	if (drag_flg == 0) return;
 	if(gesture_flg == true) return;
 
-	let evt = undefined;
+	let evt = ev;
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
