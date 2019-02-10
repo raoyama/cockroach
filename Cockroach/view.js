@@ -145,6 +145,8 @@ function draw_proc() {
 		ctx.translate( - pos[0], - pos[1] ) ;
 
 		pos = cal_pos(cockroach.x - 1, cockroach.y + 1.5);
+		ctx.lineWidth = 2;
+		ctx.font = "15px 'Arial'";
 		ctx.strokeText(cockroach.name, pos[0], pos[1]);
 	});
 }
