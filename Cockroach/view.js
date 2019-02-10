@@ -217,11 +217,11 @@ function mousewheel(ev) {
 function mousedown(ev) {
 	if(gesture_flg == true) return;
     drag_flg = 1;
-
+	let evt = ev;
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
-		let ev = ev.targetTouches[0];
+		evt = ev.targetTouches[0];
 
 		if(didFirstClick == 0) {
 			didFirstClick = 1;
@@ -235,8 +235,8 @@ function mousedown(ev) {
 
 	}
 
-	pre_x = ev.clientX;
-	pre_y = ev.clientY;
+	pre_x = evt.clientX;
+	pre_y = evt.clientY;
 	draw_proc();
 }
 
@@ -251,17 +251,18 @@ function move(ev) {
 	if (drag_flg == 0) return;
 	if(gesture_flg == true) return;
 
+	let evt = ev;
 	//スマホ対応
 	if(ev.targetTouches != undefined) {
 		ev.preventDefault();	//ブラウザ標準動作を抑止する。
-		let ev = ev.targetTouches[0];
+		evt = ev.targetTouches[0];
 	}
 
 	 //画面移動量
-	let dx = ev.clientX - pre_x;
-	let dy = ev.clientY - pre_y;
-	pre_x = ev.clientX;
-    pre_y = ev.clientY;
+	let dx = evt.clientX - pre_x;
+	let dy = evt.clientY - pre_y;
+	pre_x = evt.clientX;
+    pre_y = evt.clientY;
 
 	//カメラの相対移動量
 	g_camera_x -= dx * g_camera_z;
