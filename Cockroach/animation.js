@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function mainloop(){
 	cockroaches.forEach(function(cockroach) {
