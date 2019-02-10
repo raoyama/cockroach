@@ -42,4 +42,12 @@ class Common {
 
 		return ret;
 	}
+
+	/** 配列から特定のキーの値を返す */
+	static array_search(array, key, val) {
+		for (let hash of array) {
+			if(hash[key] == val) return hash;
+		}
+		return false;
+	}
 }
