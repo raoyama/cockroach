@@ -111,9 +111,9 @@ function draw_proc() {
 			//選択されたゴキブリのログ出力
 			ctx.strokeStyle = 'red';
 			ctx.fillStyle = 'rgba(255, 100, 100, 0.5)';
-			log(cockroach.name + '_x', cockroach.x);
-			log(cockroach.name + '_y', cockroach.y);
-			log(cockroach.name + '_r', cockroach.r);
+			cocklog(cockroach.name + '_x', cockroach.x);
+			cocklog(cockroach.name + '_y', cockroach.y);
+			cocklog(cockroach.name + '_r', cockroach.r);
 		} else {
 			//選択されていないゴキブリのログ削除
 			ctx.strokeStyle = 'blue';
@@ -145,6 +145,8 @@ function draw_proc() {
 		ctx.translate( - pos[0], - pos[1] ) ;
 
 		pos = cal_pos(cockroach.x - 1, cockroach.y + 1.5);
+		ctx.lineWidth = 2;
+		ctx.font = "15px 'Arial'";
 		ctx.strokeText(cockroach.name, pos[0], pos[1]);
 	});
 }
@@ -303,6 +305,19 @@ function log(target, msg) {
 		elem = document.createElement('div');
 		elem.id = target;
 		let root_elem = document.getElementById('log');
+		root_elem.appendChild(elem);
+	}
+
+	let n = 3;
+	msg = Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
+	elem.innerText = target + ':' + msg;
+}
+function cocklog(target, msg) {
+	let elem = document.getElementById(target);
+	if (elem == null) {
+		elem = document.createElement('div');
+		elem.id = target;
+		let root_elem = document.getElementById('cocklog');
 		root_elem.appendChild(elem);
 	}
 
