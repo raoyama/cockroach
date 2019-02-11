@@ -32,4 +32,22 @@ class Common {
 
 		return Common.rel_deg(dx, dy);
 	}
+
+	/** 配列から特定のキーの配列を返す */
+	static array_column(array, key) {
+		let ret = [];
+		for (let hash of array) {
+			ret.push(hash[key]);
+		}
+
+		return ret;
+	}
+
+	/** 配列から特定のキーの値を返す */
+	static array_search(array, key, val) {
+		for (let hash of array) {
+			if(hash[key] == val) return hash;
+		}
+		return false;
+	}
 }
