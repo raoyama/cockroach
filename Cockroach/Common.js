@@ -50,4 +50,10 @@ class Common {
 		}
 		return false;
 	}
+
+	/** 小数点数値を指定桁数にする、四捨五入 */
+	static round(msg, n) {
+		return  Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
+	}
+
 }

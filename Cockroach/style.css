@@ -81,3 +81,13 @@ html, body {
 	transition: .4s;
 }
 
+table {
+	width: 100%;
+	border-collapse: collapse;
+	padding: 0px;
+	margin: 0px;
+	line-height: 18px;
+}
+td {
+	border: dotted 1px #555555;
+}
