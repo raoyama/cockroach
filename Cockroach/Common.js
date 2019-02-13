@@ -1,59 +1,41 @@
 'use strict';
 
 class Common {
-    /** 相対角度を求める */
-    static rel_deg(dx, dy) {
-		//console.log('rel_deg === ' + dx + ':' + dy);
-    	let ret = (Math.atan2(dy, dx) / Math.PI * 180 + 360) % 360;
-		//console.log(ret);
-		return ret;
+  /** 相対角度を求める */
+  static rel_deg(dx, dy) {
+		return (Math.atan2(dy, dx) / Math.PI * 180 + 360) % 360;
+  }
+
+	/** -max~+maxの範囲でランダムな値を返却 */
+  static getRandomInt(max) {
+		//数値を決めるランダム
+    let rand = Math.floor(Math.random() * Math.floor(max));
+		//+か-を決めるランダム
+    if (Math.random() < 0.5) {
+      rand *= -1;
     }
-
-    static getRandomInt(max) {
-        let rand = Math.floor(Math.random() * Math.floor(max));
-
-        if(Math.random() < 0.5) {
-            rand *= -1;
-        }
-        
-        return rand;
+  	return rand;
 	}
 
 	/** ベクトル平均 */
 	static avg_vec(dirs) {
-		let dx = 0;
-		let dy = 0;
-		for (let dir of dirs) {
-			dx += Math.cos(dir * Math.PI / 180);
-			dy += Math.sin(dir * Math.PI / 180);
-			//console.log(dir+ ':' + dx + ':' + dy);
-		}
-//		console.log(Common.rel_deg(dx, dy));
-
-		return Common.rel_deg(dx, dy);
+		return Common.rel_deg(
+			dirs.reduce((dx, dir) => dx + Math.cos(dir * Math.PI / 180), 0),
+			dirs.reduce((dy, dir) => dy + Math.sin(dir * Math.PI / 180), 0));
 	}
 
 	/** 配列から特定のキーの配列を返す */
 	static array_column(array, key) {
-		let ret = [];
-		for (let hash of array) {
-			ret.push(hash[key]);
-		}
-
-		return ret;
+		return array.map(hash => hash[key]);
 	}
 
 	/** 配列から特定のキーの値を返す */
 	static array_search(array, key, val) {
-		for (let hash of array) {
-			if(hash[key] == val) return hash;
-		}
-		return false;
+		return array.find(hash => hash[key] == val);
 	}
 
 	/** 小数点数値を指定桁数にする、四捨五入 */
 	static round(msg, n) {
 		return  Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
 	}
-
 }
