@@ -32,6 +32,9 @@ var c,
 
 function init() {
 
+	
+	
+	
 	c        = document.getElementById('canvas');
 	wrap     = document.getElementById('wrap');
 	cockroach_select = document.getElementById('cockroach_select');
@@ -111,17 +114,16 @@ function draw_proc() {
 			//選択されたゴキブリのログ出力
 			ctx.strokeStyle = 'red';
 			ctx.fillStyle = 'rgba(255, 100, 100, 0.5)';
-			cocklog(cockroach.name + '_x', cockroach.x);
-			cocklog(cockroach.name + '_y', cockroach.y);
-			cocklog(cockroach.name + '_r', cockroach.r);
-		} else {
+			cocklog( 'x', cockroach.x);
+			cocklog( 'y', cockroach.y);
+			cocklog( 'r', cockroach.r);
+		}
+		else {
 			//選択されていないゴキブリのログ削除
 			ctx.strokeStyle = 'blue';
 			ctx.fillStyle = 'rgba(100, 100, 255, 0.5)';
-			if (document.getElementById(cockroach.name + '_x')) document.getElementById(cockroach.name + '_x').remove();
-			if (document.getElementById(cockroach.name + '_y')) document.getElementById(cockroach.name + '_y').remove();
-			if (document.getElementById(cockroach.name + '_r')) document.getElementById(cockroach.name + '_r').remove();
 		}
+		
 		ctx.fillRect(
 			 - (rect_size * 2) / 2 / g_camera_z,
 			 - rect_size / 2 / g_camera_z,
@@ -299,30 +301,36 @@ function init_data() {
 * 共通関数
 ******************************************************************************/
 
-//log関数
-function log(target, msg) {
+//log共通関数
+function comlog(table_id, target, msg) {
+
+	let log_table_elem = document.getElementById(table_id);
+
 	let elem = document.getElementById(target);
 	if (elem == null) {
-		elem = document.createElement('div');
-		elem.id = target;
-		let root_elem = document.getElementById('log');
-		root_elem.appendChild(elem);
-	}
+		let td_key = document.createElement('td');
+		td_key.align = 'left';
+		td_key.textContent = target;
 
-	let n = 3;
-	msg = Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
-	elem.innerText = target + ':' + msg;
+		let td_val = document.createElement('td');
+		td_val.align = 'right';
+		td_val.id  = target;
+		elem = td_val;
+
+		let tr = document.createElement('tr');
+		tr.appendChild(td_key);
+		tr.appendChild(td_val);
+		log_table_elem.appendChild(tr);
+	}
+	elem.innerText = Common.round(msg, 2);
 }
-function cocklog(target, msg) {
-	let elem = document.getElementById(target);
-	if (elem == null) {
-		elem = document.createElement('div');
-		elem.id = target;
-		let root_elem = document.getElementById('cocklog');
-		root_elem.appendChild(elem);
-	}
 
-	let n = 3;
-	msg = Math.floor(msg * Math.pow(10,n)) / Math.pow(10, n);
-	elem.innerText = target + ':' + msg;
+//全体log
+function log(target, msg) {
+	comlog('log_table', target, msg);
+}
+
+//obj毎log
+function cocklog(target, msg) {
+	comlog('cocklog_table', target, msg);
 }
