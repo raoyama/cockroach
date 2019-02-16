@@ -7,7 +7,7 @@ const rect_size = 1; //ゴキブリのサイズ
     //document格納用
 var c,
 	wrap,
-	cockroach_select,
+	material_select,
 	ctx,
 	//move制御用前回の値
     pre_x = 0,				
@@ -24,7 +24,8 @@ var c,
     //スマホイベント制御用
     gesture_flg = false,
     drag_flg = 0,
-    didFirstClick = 0;
+    didFirstClick = 0,
+	world = new World();
 
 /******************************************************************************
 * 初期化
@@ -33,7 +34,7 @@ var c,
 function init() {
 	c        = document.getElementById('canvas');
 	wrap     = document.getElementById('wrap');
-	cockroach_select = document.getElementById('cockroach_select');
+	material_select = document.getElementById('material_select');
 	c.height = wrap.offsetHeight;
 	c.width  = wrap.offsetWidth;
 	ctx      = c.getContext('2d');
@@ -63,11 +64,11 @@ function init() {
 	init_data();
 
 	//ゴキブリセレクトボックスの作成
-	cockroaches.forEach(function(cockroach){
+	world.materials.forEach(function(material){
 		let op = document.createElement('option');
-		op.value = cockroach.name;
-		op.text = cockroach.name;
-		cockroach_select.appendChild(op);
+		op.value = material.name;
+		op.text = material.name;
+		material_select.appendChild(op);
 	});
 
 	window.requestAnimationFrame(mainloop);
@@ -101,54 +102,22 @@ function draw_proc() {
 
 	//ゴキブリの描画
 	ctx.lineWidth = 3;
-	cockroaches.forEach(function(cockroach) {
-		let pos = cal_pos(cockroach.x, cockroach.y);
-		ctx.translate( pos[0], pos[1] ) ;
-		ctx.rotate( - cockroach.r * Math.PI / 180 );
-		
-		if (cockroach_select.options[cockroach_select.selectedIndex].value == cockroach.name){
-			//選択されたゴキブリのログ出力
+	world.materials.forEach(function(material) {
+		if (material_select.options[material_select.selectedIndex].value == material.name){
+			//選択されたマテリアルの色変更、ログ出力
 			ctx.strokeStyle = 'red';
 			ctx.fillStyle = 'rgba(255, 100, 100, 0.5)';
-			cocklog( 'x', cockroach.x);
-			cocklog( 'y', cockroach.y);
-			cocklog( 'r', cockroach.r);
+			cocklog( 'x', material.x);
+			cocklog( 'y', material.y);
+			cocklog( 'r', material.r);
 		}
 		else {
-			//選択されていないゴキブリのログ削除
+			//選択されていないマテリアルの色変更
 			ctx.strokeStyle = 'blue';
 			ctx.fillStyle = 'rgba(100, 100, 255, 0.5)';
 		}
-		
-		ctx.fillRect(
-			 - (rect_size * 2) / 2 / g_camera_z,
-			 - rect_size / 2 / g_camera_z,
-			(rect_size * 2) / g_camera_z,
-			rect_size / g_camera_z
-		);
-		ctx.strokeRect(
-			 - (rect_size * 2) / 2 / g_camera_z,
-			 - rect_size / 2 / g_camera_z,
-			(rect_size * 2) / g_camera_z,
-			rect_size / g_camera_z
-		);
-		ctx.strokeRect(
-			 (rect_size * 2) / 2 / g_camera_z,
-			 - rect_size / 4 / g_camera_z,
-			rect_size / 2 / g_camera_z,
-			rect_size / 2 / g_camera_z
-		);
 
-		ctx.rotate(cockroach.r * Math.PI / 180);
-		ctx.translate( - pos[0], - pos[1] ) ;
-
-		//検知範囲描画
-		draw_dottedLineCircle(pos[0], pos[1], World.detectionRange / g_camera_z);
-
-		pos = cal_pos(cockroach.x - 1, cockroach.y + 1.5);
-		ctx.lineWidth = 2;
-		ctx.font = "15px 'Arial'";
-		ctx.strokeText(cockroach.name, pos[0], pos[1]);
+		material.view.draw();
 	});
 }
 
