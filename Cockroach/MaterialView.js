@@ -17,9 +17,6 @@ class MaterialView {
 		ctx.rotate(this._material.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] );
 
-		//検知範囲描画
-		draw_dottedLineCircle(pos[0], pos[1], World.detectionRange / g_camera_z);
-
 		//ラベル描画
 		pos = cal_pos(this._material.x - 1, this._material.y + 1.5);
 		ctx.lineWidth = 2;

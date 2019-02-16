@@ -3,7 +3,7 @@
 class World {
     constructor() {
 		this._materials = [
-    	new Cockroach( 1, -10, -10,  30, 'ジョセフィーヌ'),
+    		new Cockroach( 1, -10, -10,  30, 'ジョセフィーヌ'),
 			new Cockroach( 2,   0, -10,  60, 'クララ'),
 			new Cockroach( 3,  10, -10,  90, 'クロエ'),
 			new Cockroach( 4, -10,   0, 120, 'ヴィクトリア'),
