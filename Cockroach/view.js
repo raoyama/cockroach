@@ -31,10 +31,6 @@ var c,
 ******************************************************************************/
 
 function init() {
-
-	
-	
-	
 	c        = document.getElementById('canvas');
 	wrap     = document.getElementById('wrap');
 	cockroach_select = document.getElementById('cockroach_select');
@@ -62,7 +58,7 @@ function init() {
 	//ブラウザリサイズ対応
 	window.addEventListener('resize', resize);
 	
-	World.mode = 0;
+	World.mode = 1;
 	
 	init_data();
 
@@ -146,6 +142,9 @@ function draw_proc() {
 		ctx.rotate(cockroach.r * Math.PI / 180);
 		ctx.translate( - pos[0], - pos[1] ) ;
 
+		//検知範囲描画
+		draw_dottedLineCircle(pos[0], pos[1], World.detectionRange / g_camera_z);
+
 		pos = cal_pos(cockroach.x - 1, cockroach.y + 1.5);
 		ctx.lineWidth = 2;
 		ctx.font = "15px 'Arial'";
@@ -161,6 +160,18 @@ function draw_line(x1, y1, x2, y2) {
 	ctx.moveTo(sp[0], sp[1]);
 	ctx.lineTo(ep[0], ep[1]);
 	ctx.stroke();
+}
+
+function draw_dottedLineCircle(x, y, r) {
+	//分割数
+	let splitNum = 72;
+	for (let i = 0; i < splitNum * 2; i++) {
+		if (i % 2 == 0)continue;
+		ctx.beginPath();
+		//ラジアン角で算出
+		ctx.arc(x, y, r, i / splitNum * Math.PI, (i + 1) / splitNum * Math.PI, false);
+		ctx.stroke();
+	}
 }
 
 function cal_pos(pos_x, pos_y) {
