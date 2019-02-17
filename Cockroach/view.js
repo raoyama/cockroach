@@ -63,7 +63,7 @@ function init() {
 	
 	init_data();
 
-	//ゴキブリセレクトボックスの作成
+	//マテリアルセレクトボックスの作成
 	world.materials.forEach(function(material){
 		let op = document.createElement('option');
 		op.value = material.name;
@@ -100,7 +100,7 @@ function draw_proc() {
 	log('g_rel_right', g_rel_right);
 	log('mode', World.mode);
 
-	//ゴキブリの描画
+	//マテリアルの描画
 	ctx.lineWidth = 3;
 	world.materials.forEach(function(material) {
 		if (material_select.options[material_select.selectedIndex].value == material.name){
