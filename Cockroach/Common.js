@@ -1,20 +1,21 @@
 'use strict';
 
 class Common {
-  /** 相対角度を求める */
-  static rel_deg(dx, dy) {
+	/** 相対角度を求める */
+	static rel_deg(dx, dy) {
 		return (Math.atan2(dy, dx) / Math.PI * 180 + 360) % 360;
-  }
+	}
 
 	/** -max~+maxの範囲でランダムな値を返却 */
-  static getRandomInt(max) {
+	static getRandomInt(max) {
 		//数値を決めるランダム
-    let rand = Math.floor(Math.random() * Math.floor(max));
+		let rand = Math.floor(Math.random() * Math.floor(max));
+
 		//+か-を決めるランダム
-    if (Math.random() < 0.5) {
-      rand *= -1;
-    }
-  	return rand;
+		if (Math.random() < 0.5) {
+			rand *= -1;
+		}
+		return rand;
 	}
 
 	/** ベクトル平均 */

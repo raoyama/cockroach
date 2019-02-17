@@ -1,8 +1,8 @@
 'use strict';
 
 function mainloop(){
-	cockroaches.forEach(function(cockroach) {
-		cockroach.run();
+	world.materials.forEach(function(material) {
+		material.run();
 	});
 
 	draw_proc();
