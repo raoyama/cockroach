@@ -50,9 +50,7 @@ class Cockroach extends Material {
 				this._notFoundCnt++;
 			} else {
 				//平均を算出してみんながたくさんいそうな方向へ進む
-				let degs = Common.array_column(cDegs, 'rel_cood');
-				let ave = degs.reduce((total, deg) => total + deg, 0) / degs.length;
-				this._rotate(ave);
+				this._rotate(Common.avg_vec(Common.array_column(cDegs, 'rel_cood')));
 				this._notFoundCnt = 0;
 			}
         }
